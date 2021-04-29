@@ -1,28 +1,34 @@
 //hi
 #include <iostream>
-#include <queue>
+#include <vector>
 #include <string>
 using namespace std;
 
-queue<string> oper_que;
 string command_line;
+
+void Parser(vector<string> &vec, string str_comm){
+	int iter = 0;
+	for(int i=0; i<str_comm.size(); i++){
+		if(str_comm[i] == ' '){
+			vec.push_back(str_comm.substr(iter,i-iter));
+			iter = i+1;
+			cout << '(' << iter << ',' << i << ')' << endl;
+		}
+	}
+}
 
 int main(){
 	while(true){
+		vector<string> oper;
 		cout << "12161161_shell$";
 		getline(cin, command_line);
-		cout << command_line;
-		
-		for(int i=0; i<command_line.size(); i++){
-			if(command_line[i]==' '){ 
-				oper_que.push(command_line.substr(0,i));
-			}
-		}
 
-		for(int i=0; i<oper_que.size(); i++){
+		Parser(oper, command_line);
+
+		for(int i=0; i < oper.size(); i++){
 			//cout << '['  << oper_que.front() << ']' <<  endl;
-			oper_que.pop();
-			//cout << oper_que.pop() << endl;
+			string s = oper[i];
+			cout << s << endl;
 		}
 	}
 
