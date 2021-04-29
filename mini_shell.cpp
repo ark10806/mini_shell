@@ -12,7 +12,6 @@ void Parser(vector<string> &vec, string str_comm){
 		if(str_comm[i] == ' '){
 			vec.push_back(str_comm.substr(iter,i-iter));
 			iter = i+1;
-			cout << '(' << iter << ',' << i << ')' << endl;
 		}
 	}
 }
@@ -26,7 +25,6 @@ int main(){
 		Parser(oper, command_line);
 
 		for(int i=0; i < oper.size(); i++){
-			//cout << '['  << oper_que.front() << ']' <<  endl;
 			string s = oper[i];
 			cout << s << endl;
 		}
