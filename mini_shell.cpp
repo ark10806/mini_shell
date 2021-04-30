@@ -10,12 +10,13 @@ g++ -std=c++11 mini_shell.cpp
 using namespace std;
 
 queue<string> history_que;
+map<int, string> history_map;
 int line_num = 0;
 string command_line;
 string tmp;
 
 void record(string str_comm){
-	history_que.push(str_comm);
+	history_map.push(str_comm);
 	
 	if(history_que.size() > 100){
 		history_que.pop();
