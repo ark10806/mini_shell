@@ -1,8 +1,8 @@
 # mini_shell
 
- -mini_shell waits until the user enter a command.  
- -The command is parsed into a command token. ("ls -al" -> "ls", "-al")  
- -If the command is built-in command then execute the command without calling fork().  
+ +mini_shell waits until the user enter a command.  
+ +The command is parsed into a command token. ("ls -al" -> "ls", "-al")  
+ (+)If the command is built-in command then execute the command without calling fork().  
  -If the command is not a built-in command then It runs process by calling system call fork() and mini_shell waits until the process ends.
     (if it is running in the background[&] then mini_shell do not wait.)
  -Repeat the above procedures until the user enters [quit].
