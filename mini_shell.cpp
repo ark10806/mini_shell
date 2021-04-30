@@ -8,12 +8,16 @@ string command_line;
 
 void Parser(vector<string> &vec, string str_comm){
 	int iter = 0;
+	if (str_comm == "quit"){
+		exit(0); // 프로그램이 정상적으로 종료.
+	}
 	for(int i=0; i<str_comm.size(); i++){
 		if(str_comm[i] == ' '){
 			vec.push_back(str_comm.substr(iter,i-iter));
 			iter = i+1;
 		}
 	}
+	vec.push_back(str_comm.substr(iter));
 }
 
 int main(){
