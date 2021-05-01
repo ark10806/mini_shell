@@ -11,3 +11,10 @@
   1. [quit]: terminates mini_shell
   2. [history]: print 10 command lines entered by the latest user.
   3. [help]: print manual
+
+
+ToDo-list:
+ - Optimize Parser(): ignoring multiple tabs or spaces.
+ - ReadMe 만들기.
+ - Execute fork()
+ - [help] manual 출력.
