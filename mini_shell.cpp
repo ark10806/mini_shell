@@ -3,41 +3,79 @@ g++ -std=c++11 mini_shell.cpp
 */
 
 #include <iostream>
+#include <unistd.h>
 #include <string>
 #include <vector>
+#include <set>
 #include "history.cpp"
 using namespace std;
 
 string command_line;
 string tmp;
-Circular_list cir_list;
+Circular_list hist_list;
+set<string> built_set;
+set<string>::iterator built_end;
+string oper_head;
+
+pid_t pid;
+int status;
+
+void init(){
+	/* 
+		by using "stl::set", We can search the input operation is wheter BUILT-IN or NOT-BUILT-IN FUNCTIONS 
+		in O(log n)-time.
+	*/
+	built_set.insert("quit");
+	built_set.insert("history");
+	built_set.insert("help");
+	built_end = built_set.end();
+}
+
+bool is_built_in_funcs(string oper){
+	return built_end != built_set.find(oper);
+}
 
 void Parser(vector<string> &vec, string str_comm){
-	cir_list.insert_circular(str_comm);
-	int iter = 0;
-	if (str_comm == "quit"){
-		exit(0); // 프로그램이 정상적으로 종료.
-	}
+	hist_list.insert_circular(str_comm);
+	int str_iter = 0;
 	for(int i=0; i<str_comm.size(); i++){
 		if(str_comm[i] == ' '){
-			vec.push_back(str_comm.substr(iter,i-iter));
-			iter = i+1;
+			vec.push_back(str_comm.substr(str_iter,i-str_iter));
+			str_iter = i+1;
 		}
 	}
-	vec.push_back(str_comm.substr(iter));
+	vec.push_back(str_comm.substr(str_iter));
 }
 
 void executer(const vector<string> vec){
-	if (vec[0] == "quit") {	exit(0); } 	// process end normaly
-	else if (vec[0] == "history") { cir_list.get_history(); }
-	else { cout << "fork" << endl; }
-	cir_list.get_history();
+	oper_head = vec[0];
+
+	if (is_built_in_funcs(oper_head)){ // When the input command is built-in functions. -> not fork().
+		
+		if(oper_head == "quit") { exit(0); }
+		else if(oper_head == "history") { hist_list.get_history(); }
+		else if(oper_head == "help") { cout << "man" << endl;}
+	}
+	else{ // When the input command is not built-in functions. -> fork()
+		if(vec.back()[])
+		pid = fork();
+		if(pid > 0){
+			cout << "Parent waiting" << endl;
+			wait(&status);
+		}
+		else if(pid == 0){
+			execl("/bin/ls", "ls", "-l", (char *)0);
+			cout << "Child done!" << endl;
+			exit(-1);
+		}
+	}
 }
 
 int main(){
-
+	init();
+	vector<string> oper;
 	while(true){
-		vector<string> oper;
+		oper.clear();
 		cout << "12161161_shell$ ";
 		getline(cin, command_line);
 
