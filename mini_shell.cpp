@@ -57,14 +57,25 @@ void executer(const vector<string> vec){
 		else if(oper_head == "help") { cout << "man" << endl;}
 	}
 	else{ // When the input command is not built-in functions. -> fork()
-		if(vec.back()[])
 		pid = fork();
+		string st = "/bin/";
 		if(pid > 0){
 			cout << "Parent waiting" << endl;
 			wait(&status);
 		}
 		else if(pid == 0){
-			execl("/bin/ls", "ls", "-l", (char *)0);
+			char c0[10];
+			char c1[10];
+			char c2[10];
+
+			strcpy(c0, (st+vec[0]).c_str());
+			strcpy(c1, vec[0].c_str());
+			strcpy(c2, vec[1].c_str());
+			
+			
+			execl(c0, c1, c2, (char *)0);
+			// execl(st, vec[0], vec[1], (char *)0);
+			// execl("/bin/ls", "ls", "-l", (char *)0);
 			cout << "Child done!" << endl;
 			exit(-1);
 		}
