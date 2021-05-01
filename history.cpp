@@ -56,13 +56,6 @@ public:
     }
 };
 
-// int main(){
-//     Circular_list lt;
-//     for(auto i=0; i<100; i++){  //13번의 입력. 마지막엔 2-idx에 원소가 위치해야함.
-//         lt.insert_circular(std::to_string(i));
-//     }
-//     lt.get_history();
-// }
 
 
 /*

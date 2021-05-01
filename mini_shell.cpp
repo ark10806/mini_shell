@@ -13,7 +13,6 @@ string tmp;
 Circular_list cir_list;
 
 void Parser(vector<string> &vec, string str_comm){
-	// record(str_comm);
 	cir_list.insert_circular(str_comm);
 	int iter = 0;
 	if (str_comm == "quit"){
