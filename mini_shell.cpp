@@ -44,7 +44,6 @@ void Parser(vector<string> & vec, string str_comm){
 			str_iter = i;
 			for(int j=i; j<str_comm.size(); j++){
 				if(j == str_comm.size()-1){
-					cout << "Caught" << endl;
 					vec.push_back(str_comm.substr(str_iter, j-str_iter+1));
 					i = j;
 					break;
@@ -56,7 +55,6 @@ void Parser(vector<string> & vec, string str_comm){
 				}
 			}
 		}
-
 	}
 	for(int i=0; i<vec.size(); i++){
 		cout << vec[i] << ", ";
@@ -95,14 +93,14 @@ void executer(const vector<string> vec){
 			strcpy(c1, vec[0].c_str());
 			strcpy(c2, vec[1].c_str());
 			
-			if(vec.size()==1){
+			if(vec.size()==1 || vec[1]=="&"){
 				execl(c0, vec[0].c_str(), (char *)0);
 			}
-			else if(vec.size()==2){
+			else if(vec.size()==2 && vec[1]!="&"){
 				execl(c0, c1, c2, (char *)0);
 			}
 			cout << "Child done!" << endl;
-			exit(-1);
+			exit(0);
 		}
 		else{
 			cout << "fork failed!" << endl;
