@@ -14,7 +14,7 @@
 
 
 ToDo-list:
- - Optimize Parser(): ignoring multiple tabs or spaces.
+ + Optimize Parser(): ignoring multiple tabs or spaces.
  - ReadMe 만들기.
- - Execute fork()
+ + Execute fork()
  - [help] manual 출력.
