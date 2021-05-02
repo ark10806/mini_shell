@@ -35,17 +35,35 @@ bool is_built_in_funcs(string oper){
 	return built_end != built_set.find(oper);
 }
 
-void Parser(vector<string> &vec, string str_comm){
+void Parser(vector<string> & vec, string str_comm){
 	hist_list.insert_circular(str_comm);
-	int str_iter = 0;
+	int str_iter = -1;
 	for(int i=0; i<str_comm.size(); i++){
-		if(str_comm[i] == ' '){
-			vec.push_back(str_comm.substr(str_iter,i-str_iter));
-			str_iter = i+1;
+		if(str_comm[i]==' ') continue;
+		else{
+			str_iter = i;
+			for(int j=i; j<str_comm.size(); j++){
+				if(j == str_comm.size()-1){
+					cout << "Caught" << endl;
+					vec.push_back(str_comm.substr(str_iter, j-str_iter+1));
+					i = j;
+					break;
+				}
+				if(str_comm[j]==' '){
+					vec.push_back(str_comm.substr(str_iter, j-str_iter));
+					i = j;
+					break;
+				}
+			}
 		}
+
 	}
-	vec.push_back(str_comm.substr(str_iter));
+	for(int i=0; i<vec.size(); i++){
+		cout << vec[i] << ", ";
+	}
+	cout << endl;
 }
+
 
 void executer(const vector<string> vec){
 	oper_head = vec[0];
@@ -60,8 +78,13 @@ void executer(const vector<string> vec){
 		pid = fork();
 		string st = "/bin/";
 		if(pid > 0){
-			cout << "Parent waiting" << endl;
-			wait(&status);
+			if(vec[vec.size()-1][vec[vec.size()-1].size()-1] == '&'){
+				cout << "Parent not waiting" << endl;
+			}
+			else{
+				cout << "Parent waiting" << endl;
+				wait(&status);
+			}
 		}
 		else if(pid == 0){
 			char c0[10];
@@ -72,12 +95,17 @@ void executer(const vector<string> vec){
 			strcpy(c1, vec[0].c_str());
 			strcpy(c2, vec[1].c_str());
 			
-			
-			execl(c0, c1, c2, (char *)0);
-			// execl(st, vec[0], vec[1], (char *)0);
-			// execl("/bin/ls", "ls", "-l", (char *)0);
+			if(vec.size()==1){
+				execl(c0, vec[0].c_str(), (char *)0);
+			}
+			else if(vec.size()==2){
+				execl(c0, c1, c2, (char *)0);
+			}
 			cout << "Child done!" << endl;
 			exit(-1);
+		}
+		else{
+			cout << "fork failed!" << endl;
 		}
 	}
 }
