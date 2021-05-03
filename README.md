@@ -8,14 +8,14 @@
  - Repeat the above procedures until the user enters [quit].
 
  ## Features
-   1. It reduced time to search for built-in commands to O(logn)-time by using "STL::set".
-   2. It takes time to **insert and delete logs** that contains the line number and user commands
+   - It reduced time to search for built-in commands to O(logn)-time by using "STL::set".
+   - It takes time to **insert and delete logs** that contains the line number and user commands
       about O(1)-time by defining "Circular list".
  
  ## built-in commands
-  1. [quit]: terminates mini_shell
-  2. [history]: show 100 latest command lines entered by the user.
-  3. [help]: show manuals.
+   - [quit]: terminates mini_shell
+   - [history]: show 100 latest command lines entered by the user.
+   - [help]: show manuals.
 
  ## Building
 It contains c++11 syntax / grammars. You can build mini_shell by using commad like:
