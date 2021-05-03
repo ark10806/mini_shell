@@ -1,0 +1,27 @@
+
+
+------------------------------------------------------------------------------------------------
+    NAME
+        mini_shell (shell)
+
+    DESCRIPTION
+        Argument List Processing
+
+    ESCAPE CHARACTERS
+        ~C  Open command line. 
+
+    BUILT-IN COMMANDS
+        quit    terminates mini_shell.
+        history show 100 latest command lines entered by the user.
+        help    show manuals.
+    
+    EXECUTE CHILD PROCESS
+        ~ &     fork and exec a process and the mini_shell do not wait until the child process is done.
+                It can be attatched to linux shell commands.
+
+    AUTHORS
+        mini_shell is derivateive of the original and free ssh 1.0 release by Seungchan Park. 
+
+            May 3, 2021
+------------------------------------------------------------------------------------------------
+

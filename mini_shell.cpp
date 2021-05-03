@@ -1,13 +1,11 @@
-/*
-g++ -std=c++11 mini_shell.cpp
-*/
-
 #include <iostream>
+#include <fstream>
 #include <unistd.h>
 #include <string>
 #include <vector>
 #include <set>
 #include "history.cpp"
+#define PROCESS_QUIT 0
 using namespace std;
 
 string command_line;
@@ -56,10 +54,20 @@ void Parser(vector<string> & vec, string str_comm){
 			}
 		}
 	}
-	for(int i=0; i<vec.size(); i++){
-		cout << vec[i] << ", ";
+}
+
+void show_help(){
+	string str_help;
+	ifstream readFile;
+	readFile.open("help.txt");
+
+	if(readFile.is_open()){
+		while(!readFile.eof()){
+			getline(readFile, str_help);
+			std::cout << str_help << std::endl;
+		}
+		readFile.close();
 	}
-	cout << endl;
 }
 
 
@@ -68,19 +76,15 @@ void executer(const vector<string> vec){
 
 	if (is_built_in_funcs(oper_head)){ // When the input command is built-in functions. -> not fork().
 		
-		if(oper_head == "quit") { exit(0); }
+		if(oper_head == "quit") { exit(PROCESS_QUIT); }
 		else if(oper_head == "history") { hist_list.get_history(); }
-		else if(oper_head == "help") { cout << "man" << endl;}
+		else if(oper_head == "help") { show_help(); }
 	}
 	else{ // When the input command is not built-in functions. -> fork()
 		pid = fork();
 		string st = "/bin/";
 		if(pid > 0){
-			if(vec[vec.size()-1][vec[vec.size()-1].size()-1] == '&'){
-				cout << "Parent not waiting" << endl;
-			}
-			else{
-				cout << "Parent waiting" << endl;
+			if(vec[vec.size()-1][vec[vec.size()-1].size()-1] != '&'){
 				wait(&status);
 			}
 		}
@@ -88,10 +92,12 @@ void executer(const vector<string> vec){
 			char c0[10];
 			char c1[10];
 			char c2[10];
+			char c3[10];
 
 			strcpy(c0, (st+vec[0]).c_str());
 			strcpy(c1, vec[0].c_str());
 			strcpy(c2, vec[1].c_str());
+			strcpy(c3, vec[2].c_str());
 			
 			if(vec.size()==1 || vec[1]=="&"){
 				execl(c0, vec[0].c_str(), (char *)0);
@@ -99,11 +105,13 @@ void executer(const vector<string> vec){
 			else if(vec.size()==2 && vec[1]!="&"){
 				execl(c0, c1, c2, (char *)0);
 			}
-			cout << "Child done!" << endl;
-			exit(0);
+			else if(vec.size()==3 && vec[2]!="&"){
+				execl(c0, c1, c2, c3, (char *)0);
+			}
+			exit(PROCESS_QUIT);
 		}
 		else{
-			cout << "fork failed!" << endl;
+			std::cout << "fork failed!" << std::endl;
 		}
 	}
 }
@@ -113,7 +121,7 @@ int main(){
 	vector<string> oper;
 	while(true){
 		oper.clear();
-		cout << "12161161_shell$ ";
+		std::cout << "12161161_shell$ ";
 		getline(cin, command_line);
 
 		
