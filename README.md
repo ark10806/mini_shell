@@ -8,9 +8,9 @@
  - Repeat the above procedures until the user enters [quit].
 
  ## Features
-   - It reduced time to search for built-in commands to O(logn)-time by using "STL::set".
+   - It reduced time to search for built-in commands to **O(logn)-time** by using "**STL::set**".
    - It takes time to **insert and delete logs** that contains the line number and user commands
-      about O(1)-time by defining "Circular list".
+      **about O(1)-time** by defining "**Circular list**".
  
  ## built-in commands
    - [quit]: terminates mini_shell
