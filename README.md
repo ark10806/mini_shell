@@ -19,3 +19,4 @@ ToDo-list:
  + Execute fork()
  - [help] manual 출력.
  - history size 100으로 수정.
+ - execl Params조절.
