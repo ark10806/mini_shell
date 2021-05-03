@@ -18,3 +18,4 @@ ToDo-list:
  - ReadMe 만들기.
  + Execute fork()
  - [help] manual 출력.
+ - history size 100을 수정.
