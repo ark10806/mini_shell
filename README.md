@@ -19,6 +19,9 @@
 
 
 It contains c++11 syntax / grammars. You can build mini_shell by using commad like:
+
 '''
+
 g++ -std=c++11 mini_shell.cpp
+
 '''
