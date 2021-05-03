@@ -17,7 +17,7 @@
   2. [history]: show 100 latest command lines entered by the user.
   3. [help]: show manuals.
 
-
+ ## Building
 It contains c++11 syntax / grammars. You can build mini_shell by using commad like:
 ```
 g++ -std=c++11 mini_shell.cpp
