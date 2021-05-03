@@ -8,7 +8,7 @@ private:
     std::list<std::string>::iterator iter;
     int total_idx;
     int size;
-    int CAPACITY=10;
+    int CAPACITY=100;
     bool is_full;
 public:
     Circular_list(){
