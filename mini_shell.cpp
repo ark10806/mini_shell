@@ -2,6 +2,8 @@
 #include <fstream>
 #include <unistd.h>
 #include <string>
+#include <cstring>
+#include <sys/wait.h>
 #include <vector>
 #include <set>
 #include "history.cpp"
@@ -74,8 +76,7 @@ void show_help(){
 void executer(const vector<string> vec){
 	oper_head = vec[0];
 
-	if (is_built_in_funcs(oper_head)){ // When the input command is built-in functions. -> not fork().
-		
+	if (is_built_in_funcs(oper_head)){ // When the input command is built-in functions. -> not fork().		
 		if(oper_head == "quit") { exit(PROCESS_QUIT); }
 		else if(oper_head == "history") { hist_list.get_history(); }
 		else if(oper_head == "help") { show_help(); }
@@ -83,32 +84,34 @@ void executer(const vector<string> vec){
 	else{ // When the input command is not built-in functions. -> fork()
 		pid = fork();
 		string st = "/bin/";
-		if(pid > 0){
-			if(vec[vec.size()-1][vec[vec.size()-1].size()-1] != '&'){
-				wait(&status);
-			}
-		}
-		else if(pid == 0){
-			char c0[10];
-			char c1[10];
-			char c2[10];
-			char c3[10];
-
+		
+		char c0[10];
+		char c1[10];
+		char c2[10];
+		char c3[10];
+		
+		if(pid == 0){
 			strcpy(c0, (st+vec[0]).c_str());
 			strcpy(c1, vec[0].c_str());
-			strcpy(c2, vec[1].c_str());
-			strcpy(c3, vec[2].c_str());
 			
 			if(vec.size()==1 || vec[1]=="&"){
 				execl(c0, vec[0].c_str(), (char *)0);
 			}
 			else if(vec.size()==2 && vec[1]!="&"){
+				strcpy(c2, vec[1].c_str());
 				execl(c0, c1, c2, (char *)0);
 			}
 			else if(vec.size()==3 && vec[2]!="&"){
+				strcpy(c2, vec[1].c_str());
+				strcpy(c3, vec[2].c_str());
 				execl(c0, c1, c2, c3, (char *)0);
 			}
 			exit(PROCESS_QUIT);
+		}
+		else if(pid > 0){
+			if(vec[vec.size()-1][vec[vec.size()-1].size()-1] != '&'){
+				wait(&status);
+			}
 		}
 		else{
 			std::cout << "fork failed!" << std::endl;
@@ -126,7 +129,8 @@ int main(){
 
 		
 		Parser(oper, command_line);
-		executer(oper);
+		if(oper.size() != 0) 
+			executer(oper);
 	}
 
 	return 0;

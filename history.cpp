@@ -6,6 +6,7 @@ class Circular_list{
 private:
     std::list<std::string> lt;
     std::list<std::string>::iterator iter;
+    std::list<std::string>::iterator tmp_iter;
     int total_idx;
     int size;
     int CAPACITY=100;
@@ -23,8 +24,8 @@ public:
             is_full = true;
         }
         if(is_full){
-            lt.erase(iter);
-            iter++;
+            tmp_iter = iter++;
+            lt.erase(tmp_iter);
             lt.insert(iter, strs);
         }
         else{ lt.push_back(strs); }
