@@ -19,8 +19,14 @@
         help    show manuals.
     
     EXECUTE CHILD PROCESS
-        ~ &     fork and exec a process and the mini_shell do not wait until the child process is done.
+        ~ &     fork and exec a process and the mini_shell do not wait for child process.
                 It can be attatched to linux shell commands.
+
+    VERSIONS
+	0.1	tested on MacOS
+	0.2	tested on Raspbian
+	1.0	tested on Ubuntu 14.04.6
+			- history iterator bug fixed. (It was about memory allocation.)
 
     AUTHORS
         mini_shell is derivateive of the original and free ssh 1.0 release by Seungchan Park. 
