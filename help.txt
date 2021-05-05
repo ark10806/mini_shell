@@ -26,7 +26,7 @@
 	0.1	tested on MacOS
 	0.2	tested on Raspbian
 	1.0	tested on Ubuntu 14.04.6
-			- history iterator bug fixed. (It was about memory allocation.)
+			- history iterator bug fixed. (was about memory allocation.)
 
     AUTHORS
         mini_shell is derivateive of the original and free ssh 1.0 release by Seungchan Park. 
