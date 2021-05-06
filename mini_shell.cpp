@@ -77,7 +77,10 @@ void executer(const vector<string> vec){
 	oper_head = vec[0];
 
 	if (is_built_in_funcs(oper_head)){ // When the input command is built-in functions. -> not fork().		
-		if(oper_head == "quit") { exit(PROCESS_QUIT); }
+		if(oper_head == "quit") { 	
+			cout << "\tmyshell developed by Seungchan Park(12161161)" << endl;
+			exit(PROCESS_QUIT);
+		}
 		else if(oper_head == "history") { hist_list.get_history(); }
 		else if(oper_head == "help") { show_help(); }
 	}
@@ -132,6 +135,7 @@ int main(){
 		if(oper.size() != 0) 
 			executer(oper);
 	}
+
 
 	return 0;
 }
