@@ -22,5 +22,3 @@ It contains c++11 syntax / grammars. You can build mini_shell by using commad li
 ```
 g++ -std=c++11 mini_shell.cpp
 ```
-
-<img width="80%" src="http://210.111.178.136/pstree.gif"/>
